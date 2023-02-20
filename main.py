@@ -31,6 +31,16 @@ def makeTodo():
     newTodo.printTodo()
     input.delete(0, END)
 
+def deleteTodo():
+    todo = str(taskBox.get(ANCHOR))
+    if todo in todos:
+        todos.remove(todo)
+        with open('todolist.txt', 'w') as file:
+            for todo in todos:
+                file.write(todo + '\n')
+
+        taskBox.delete(ANCHOR)
+
 
 def openTaskFile():
     try:
@@ -44,6 +54,7 @@ def openTaskFile():
     except:
         file = open("todolist.txt", "w")
         file.close()
+openTaskFile()
 
 
 # Create buttons
@@ -52,7 +63,7 @@ btnFont = font.Font(size=16)
 addTaskBtn = Button(root, font=btnFont, text="Add Task", width=10, command=makeTodo)
 addTaskBtn.place(x=260, y=400)
 
-delTaskBtn = Button(root, font=btnFont, text="Delete Task", width=10)
+delTaskBtn = Button(root, font=btnFont, text="Delete Task", width=10, command=deleteTodo)
 delTaskBtn.place(x=100, y=400)
 
 root.mainloop()
