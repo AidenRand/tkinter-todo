@@ -3,15 +3,16 @@ from tkinter import font
 
 root = Tk()
 root.geometry("500x500")
+root.config(bg="#1e1e1e")
 
 todos = []
 
 inputFont = font.Font(size=22)
-input = Entry(root, font=inputFont)
+input = Entry(root, font=inputFont, bg="#efefef")
 input.place(x=85, y=350)
 
 
-taskBox = Listbox(root, width=70, height=20)
+taskBox = Listbox(root, width=70, height=20, bg="#efefef")
 taskBox.pack(side="top")
 
 
@@ -31,13 +32,14 @@ def makeTodo():
     newTodo.printTodo()
     input.delete(0, END)
 
+
 def deleteTodo():
     todo = str(taskBox.get(ANCHOR))
     if todo in todos:
         todos.remove(todo)
-        with open('todolist.txt', 'w') as file:
+        with open("todolist.txt", "w") as file:
             for todo in todos:
-                file.write(todo + '\n')
+                file.write(todo + "\n")
 
         taskBox.delete(ANCHOR)
 
@@ -54,16 +56,24 @@ def openTaskFile():
     except:
         file = open("todolist.txt", "w")
         file.close()
+
+
 openTaskFile()
 
 
 # Create buttons
 btnFont = font.Font(size=16)
 
-addTaskBtn = Button(root, font=btnFont, text="Add Task", width=10, command=makeTodo)
+# Create add task button
+addTaskBtn = Button(
+    root, font=btnFont, text="Add Task", width=10, command=makeTodo, bg="#efefef"
+)
 addTaskBtn.place(x=260, y=400)
 
-delTaskBtn = Button(root, font=btnFont, text="Delete Task", width=10, command=deleteTodo)
+# Add delete task button
+delTaskBtn = Button(
+    root, font=btnFont, text="Delete Task", width=10, command=deleteTodo, bg="#efefef"
+)
 delTaskBtn.place(x=100, y=400)
 
 root.mainloop()
